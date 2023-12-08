@@ -28,7 +28,7 @@ namespace WpfAppOreshnikov.Pages
 
         private void Btn_login_Click(object sender, RoutedEventArgs e)
         {
-            var user = bd_Entities.Get_Context().polzovateli.FirstOrDefault(x => (x.login == text_login.Text) && (x.parol == text_password.Password));
+            var user = bd_Entities.Get_Context().polzovateli.FirstOrDefault(x => x.login == text_login.Text && x.parol == text_password.Password);
             if (user == null)
             {
                 MessageBox.Show("Пользователь с таким логином и паролем не найден!", "Ошибка Авторизации", MessageBoxButton.OK, MessageBoxImage.Error);

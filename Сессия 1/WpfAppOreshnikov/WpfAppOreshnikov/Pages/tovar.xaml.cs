@@ -25,9 +25,7 @@ namespace WpfAppOreshnikov.Pages
         public tovar()
         {
             InitializeComponent();
-            string[] sort = { "По возрастанию", "По убыванию"};
-            sort_box.ItemsSource = sort.ToList();
-            string[] filtr = { "0-9,99%","10-14,99%","15% и более","Все диапазоны" };
+            string[] filtr = {"Все диапазоны", "0-9,99%","10-14,99%","15% и более"};
             filtr_box.ItemsSource = filtr.ToList();
             grid_Data.ItemsSource = bd_Entities.Get_Context().sklad.ToList();
             int kol = grid_Data.Items.Count;
