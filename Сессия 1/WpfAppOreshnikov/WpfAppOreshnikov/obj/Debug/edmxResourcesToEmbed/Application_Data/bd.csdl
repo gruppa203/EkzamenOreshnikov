@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="bd_OreshnikovModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="polzovateli">
+    <Key>
+      <PropertyRef Name="kod" />
+    </Key>
+    <Property Name="kod" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="imya" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="parol" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="rol" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Roli" Relationship="Self.FK_polzovateli_Roli" FromRole="polzovateli" ToRole="Roli" />
+  </EntityType>
+  <EntityType Name="Roli">
+    <Key>
+      <PropertyRef Name="kod" />
+    </Key>
+    <Property Name="kod" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="rol" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="polzovateli" Relationship="Self.FK_polzovateli_Roli" FromRole="Roli" ToRole="polzovateli" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_polzovateli_Roli">
+    <End Role="Roli" Type="Self.Roli" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="polzovateli" Type="Self.polzovateli" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roli">
+        <PropertyRef Name="kod" />
+      </Principal>
+      <Dependent Role="polzovateli">
+        <PropertyRef Name="rol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="bd_Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="polzovateli" EntityType="Self.polzovateli" />
+    <EntitySet Name="Roli" EntityType="Self.Roli" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <AssociationSet Name="FK_polzovateli_Roli" Association="Self.FK_polzovateli_Roli">
+      <End Role="Roli" EntitySet="Roli" />
+      <End Role="polzovateli" EntitySet="polzovateli" />
+    </AssociationSet>
+    <EntitySet Name="sklad" EntityType="bd_OreshnikovModel.sklad" />
+  </EntityContainer>
+  <EntityType Name="sklad">
+    <Key>
+      <PropertyRef Name="artikul" />
+    </Key>
+    <Property Name="artikul" Type="String" Nullable="false" MaxLength="7" FixedLength="true" Unicode="true" />
+    <Property Name="naimemovanie" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ed_izmereniya" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Name="stoimost" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="vozmojnaya_skidka" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="proizvoditel" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="postavsik" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="kategoriya" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="skidka" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="kolichestvo" Type="Int32" Nullable="false" />
+    <Property Name="opisanie" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="izobrajenie" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

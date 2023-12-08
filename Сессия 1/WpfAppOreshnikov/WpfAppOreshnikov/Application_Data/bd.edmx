@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище bd_OreshnikovModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="polzovateli">
+          <Key>
+            <PropertyRef Name="kod" />
+          </Key>
+          <Property Name="kod" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="imya" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="parol" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="rol" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roli">
+          <Key>
+            <PropertyRef Name="kod" />
+          </Key>
+          <Property Name="kod" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rol" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sklad">
+          <Key>
+            <PropertyRef Name="artikul" />
+          </Key>
+          <Property Name="artikul" Type="nchar" MaxLength="7" Nullable="false" />
+          <Property Name="naimemovanie" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ed_izmereniya" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="stoimost" Type="money" Nullable="false" />
+          <Property Name="vozmojnaya_skidka" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="proizvoditel" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="postavsik" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="kategoriya" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="skidka" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="kolichestvo" Type="int" Nullable="false" />
+          <Property Name="opisanie" Type="nvarchar" MaxLength="100" />
+          <Property Name="izobrajenie" Type="nvarchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_polzovateli_Roli">
+          <End Role="Roli" Type="Self.Roli" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="polzovateli" Type="Self.polzovateli" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roli">
+              <PropertyRef Name="kod" />
+            </Principal>
+            <Dependent Role="polzovateli">
+              <PropertyRef Name="rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище bd_OreshnikovModelContainer">
+          <EntitySet Name="polzovateli" EntityType="Self.polzovateli" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roli" EntityType="Self.Roli" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sklad" EntityType="Self.sklad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_polzovateli_Roli" Association="Self.FK_polzovateli_Roli">
+            <End Role="Roli" EntitySet="Roli" />
+            <End Role="polzovateli" EntitySet="polzovateli" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="bd_OreshnikovModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="polzovateli">
+          <Key>
+            <PropertyRef Name="kod" />
+          </Key>
+          <Property Name="kod" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="imya" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="parol" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="rol" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Roli" Relationship="Self.FK_polzovateli_Roli" FromRole="polzovateli" ToRole="Roli" />
+        </EntityType>
+        <EntityType Name="Roli">
+          <Key>
+            <PropertyRef Name="kod" />
+          </Key>
+          <Property Name="kod" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rol" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="polzovateli" Relationship="Self.FK_polzovateli_Roli" FromRole="Roli" ToRole="polzovateli" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_polzovateli_Roli">
+          <End Role="Roli" Type="Self.Roli" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="polzovateli" Type="Self.polzovateli" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roli">
+              <PropertyRef Name="kod" />
+            </Principal>
+            <Dependent Role="polzovateli">
+              <PropertyRef Name="rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bd_Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="polzovateli" EntityType="Self.polzovateli" />
+          <EntitySet Name="Roli" EntityType="Self.Roli" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK_polzovateli_Roli" Association="Self.FK_polzovateli_Roli">
+            <End Role="Roli" EntitySet="Roli" />
+            <End Role="polzovateli" EntitySet="polzovateli" />
+          </AssociationSet>
+          <EntitySet Name="sklad" EntityType="bd_OreshnikovModel.sklad" />
+        </EntityContainer>
+        <EntityType Name="sklad">
+          <Key>
+            <PropertyRef Name="artikul" />
+          </Key>
+          <Property Name="artikul" Type="String" Nullable="false" MaxLength="7" FixedLength="true" Unicode="true" />
+          <Property Name="naimemovanie" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ed_izmereniya" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="stoimost" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="vozmojnaya_skidka" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="proizvoditel" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="postavsik" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="kategoriya" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="skidka" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="kolichestvo" Type="Int32" Nullable="false" />
+          <Property Name="opisanie" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="izobrajenie" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище bd_OreshnikovModelContainer" CdmEntityContainer="bd_Entities">
+          <EntitySetMapping Name="polzovateli">
+            <EntityTypeMapping TypeName="bd_OreshnikovModel.polzovateli">
+              <MappingFragment StoreEntitySet="polzovateli">
+                <ScalarProperty Name="kod" ColumnName="kod" />
+                <ScalarProperty Name="imya" ColumnName="imya" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="parol" ColumnName="parol" />
+                <ScalarProperty Name="rol" ColumnName="rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roli">
+            <EntityTypeMapping TypeName="bd_OreshnikovModel.Roli">
+              <MappingFragment StoreEntitySet="Roli">
+                <ScalarProperty Name="kod" ColumnName="kod" />
+                <ScalarProperty Name="rol" ColumnName="rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="bd_OreshnikovModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sklad">
+            <EntityTypeMapping TypeName="bd_OreshnikovModel.sklad">
+              <MappingFragment StoreEntitySet="sklad">
+                <ScalarProperty Name="izobrajenie" ColumnName="izobrajenie" />
+                <ScalarProperty Name="opisanie" ColumnName="opisanie" />
+                <ScalarProperty Name="kolichestvo" ColumnName="kolichestvo" />
+                <ScalarProperty Name="skidka" ColumnName="skidka" />
+                <ScalarProperty Name="kategoriya" ColumnName="kategoriya" />
+                <ScalarProperty Name="postavsik" ColumnName="postavsik" />
+                <ScalarProperty Name="proizvoditel" ColumnName="proizvoditel" />
+                <ScalarProperty Name="vozmojnaya_skidka" ColumnName="vozmojnaya_skidka" />
+                <ScalarProperty Name="stoimost" ColumnName="stoimost" />
+                <ScalarProperty Name="ed_izmereniya" ColumnName="ed_izmereniya" />
+                <ScalarProperty Name="naimemovanie" ColumnName="naimemovanie" />
+                <ScalarProperty Name="artikul" ColumnName="artikul" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

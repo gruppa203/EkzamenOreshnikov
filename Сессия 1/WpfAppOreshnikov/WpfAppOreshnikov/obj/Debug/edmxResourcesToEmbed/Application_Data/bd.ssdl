@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище bd_OreshnikovModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="polzovateli">
+    <Key>
+      <PropertyRef Name="kod" />
+    </Key>
+    <Property Name="kod" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="imya" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="login" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="parol" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="rol" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Roli">
+    <Key>
+      <PropertyRef Name="kod" />
+    </Key>
+    <Property Name="kod" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="rol" Type="nvarchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sklad">
+    <Key>
+      <PropertyRef Name="artikul" />
+    </Key>
+    <Property Name="artikul" Type="nchar" MaxLength="7" Nullable="false" />
+    <Property Name="naimemovanie" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ed_izmereniya" Type="nvarchar" MaxLength="5" Nullable="false" />
+    <Property Name="stoimost" Type="money" Nullable="false" />
+    <Property Name="vozmojnaya_skidka" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="proizvoditel" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="postavsik" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="kategoriya" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="skidka" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="kolichestvo" Type="int" Nullable="false" />
+    <Property Name="opisanie" Type="nvarchar" MaxLength="100" />
+    <Property Name="izobrajenie" Type="nvarchar" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_polzovateli_Roli">
+    <End Role="Roli" Type="Self.Roli" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="polzovateli" Type="Self.polzovateli" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roli">
+        <PropertyRef Name="kod" />
+      </Principal>
+      <Dependent Role="polzovateli">
+        <PropertyRef Name="rol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище bd_OreshnikovModelContainer">
+    <EntitySet Name="polzovateli" EntityType="Self.polzovateli" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Roli" EntityType="Self.Roli" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sklad" EntityType="Self.sklad" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_polzovateli_Roli" Association="Self.FK_polzovateli_Roli">
+      <End Role="Roli" EntitySet="Roli" />
+      <End Role="polzovateli" EntitySet="polzovateli" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

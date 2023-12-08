@@ -1,0 +1,18 @@
+﻿<Page x:Class="WpfAppOreshnikov.Pages.Login"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfAppOreshnikov.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Login" Background="#FF93D8FF">
+
+    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Label Content="Логин" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="text_login" MinWidth="200"/>
+        <Label Content="Пароль" HorizontalContentAlignment="Center"/>
+        <PasswordBox x:Name="text_password" MinWidth="200"/>
+        <Button x:Name="btn_login" Content="Войти" Click="Btn_login_Click"/>
+    </StackPanel>
+</Page>
