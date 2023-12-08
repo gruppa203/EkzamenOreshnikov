@@ -31,16 +31,10 @@
         </Grid.ColumnDefinitions>
         <DataGrid x:Name="grid_Data" Grid.ColumnSpan="7" Grid.Column="1" Grid.Row="3" AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="auto" Header="Артикул" Binding="{Binding artikul}"/>
                 <DataGridTextColumn Width="auto" Header="Наименование" Binding="{Binding naimemovanie}"/>
-                <DataGridTextColumn Width="auto" Header="ед. изм" Binding="{Binding ed_izmereniya}"/>
                 <DataGridTextColumn Width="auto" Header="Стоимость" Binding="{Binding stoimost}"/>
-                <DataGridTextColumn Width="auto" Header="Возможная скидка" Binding="{Binding vozmojnaya_skidka}"/>
                 <DataGridTextColumn Width="auto" Header="Производитель" Binding="{Binding proizvoditel}"/>
-                <DataGridTextColumn Width="auto" Header="Поставщик" Binding="{Binding postavsik}"/>
-                <DataGridTextColumn Width="auto" Header="Категория" Binding="{Binding kategoriya}"/>
                 <DataGridTextColumn Width="auto" Header="Скидка" Binding="{Binding skidka}"/>
-                <DataGridTextColumn Width="auto" Header="Количество" Binding="{Binding kolichestvo}"/>
                 <DataGridTextColumn Width="auto" Header="Описание" Binding="{Binding opisanie}"/>
                 <DataGridTextColumn Width="auto" Header="Изображение" Binding="{Binding izobrajenie}"/>
             </DataGrid.Columns>
